@@ -18,7 +18,7 @@
         * Default path environment variable for each different type of project
             * This is required to use the default feature.
 
-## Customizable expansion
+## Customizable expansion: projectCreate.py file
 * Create different types of projects (can be unrelated to Python and Javascript).
     * Create a NewProject class and make it inherit from the Project class.
     * Update the environment variable in the NewProject class and assign it to the self.projectType variable.
