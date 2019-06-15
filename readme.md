@@ -1,11 +1,11 @@
 # Automate Building of New Project
 * The purpose of this app is to automate the building of new project.
-* This currently support python project and Web projects using Javascript
+* This currently support python projects and Web projects using Javascript.
 * No installation of additional libraries are required.
 
 ## Tests
-* Tested on Mac OSX Mojave
-* Python 3.6 and above should work
+* Tested on Mac OSX Mojave.
+* Python 3.6 and above should work.
 
 ## How to get it to work?
 * Python needs to be installed.
@@ -13,9 +13,9 @@
 > python run.py help
 * All dictionaries have to updated accordingly in the run.py and projectCreate.py.
     * menuDict elements in the run.py have to be updated if not using default values.
-    * Github username environment variable
+    * Github username environment variable.
         * This MUST be updated to create a Github repository.
-    * Default path environment variable for each different type of project
+    * Default path environment variable for each different type of project.
         * This is required to use the default feature.
 
 ## Customizable expansion: projectCreate.py file
@@ -26,7 +26,7 @@
             * Keys must be similar to menuDict, excluding Github username.
             * Values are the String of environment variables.
                 * Default path must be saved as an environment variable, and stored as the value of the key.
-        * filesDict in projectCreate.py must be updated to create the desired files and or folders with files
+        * filesDict in projectCreate.py must be updated to create the desired files and or folders with files.
             * Key must be similar to menuDict.
             * Values must be a list of Strings, which are the file and or folder with file names.
         * templateDict in projectCreate.py can be updated if adding data to a new file is required.
