@@ -6,47 +6,18 @@ from libraries import filelib as fl
 
 class Project:
     """Create new project template."""
-    def __init__(self, projectType, files, projectName=None, default=True):
+    def __init__(self, projectName=None, default=True):
         self.projectName = projectName
         if default is True:
             if self.projectName is None:
                 self.projectName = input("Project name: ")
-            projectPath = os.environ.get(projectType)
+            projectPath = os.environ.get(envDict[sys.argv[1]])
             self.path = f"{projectPath}/{self.projectName}"
         else:
             getPath = fl.FileSystem()
             getPath.setPath()
             self.path = f"{getPath.filePath}/{self.projectName}"
-        createFile(files, self.path)
-
-
-class PythonProject(Project):
-    """
-    Create Python project.
-    - To enable default path, ensure the path is saved in the environment
-    variable as the self.projectType value.
-    - Add all files and folders to be created in the self.files array
-    """
-    def __init__(self, projectName=None, default=True):
-        # UPDATE THIS to your environment variable
-        self.projectType = "pyProject"
-        self.files = ["readme.md", "main.py", ".gitignore"]
-        super().__init__(self.projectType, self.files, projectName, default)
-
-
-class WebJSProject(Project):
-    """
-    Create Web project that uses Javascript.
-    - To enable default path, ensure the path is saved in the environment
-    variable as the self.projectType value.
-    - Add all files and folders to be created in the self.files array
-    """
-    def __init__(self, projectName=None, default=True):
-        # UPDATE THIS to your environment variable
-        self.projectType = "webProject"
-        self.files = ["readme.md", "index.html", "public/stylesheets/main.css",
-                      "public/javascripts/app.js", ".gitignore"]
-        super().__init__(self.projectType, self.files, projectName, default)
+        createFile(filesDict[sys.argv[1]], self.path)
 
 
 class GitInitiate:
@@ -59,11 +30,8 @@ class GitInitiate:
     - Link project to respository
     - Push project to respository
     """
-    def __init__(self, projectType, projectName=None, default=True):
-        if projectDict.get(projectType) is None:
-            print(f"{projectType} is not supported")
-        else:
-            self.project = projectDict[projectType](projectName, default)
+    def __init__(self, projectName=None, default=True):
+        self.project = Project(projectName, default)
         self.path = self.project.path
         os.chdir(self.path)  # required to run commands at correct path
         for command in self.getCommands():
@@ -78,7 +46,7 @@ class GitInitiate:
         # UPDATE THIS to your environment variable
         return [
             "git init && git add . && git commit -m 'first commit'",
-            f"curl -u '{os.environ.get('githubUser')}' "
+            f"curl -u '{os.environ.get(envDict['user'])}' "
             "https://api.github.com/user/repos -d '"
             "{\"name\":\"" + f"{self.project.projectName}" + "\"}'",
             "git remote add origin https://github.com/"
@@ -118,10 +86,18 @@ def gitignoreTemplate():
     return gitignoreDict[sys.argv[1]]
 
 
-# Dictionary of all buildable projects available for automation
-projectDict = {
-    "python": PythonProject,
-    "webjs": WebJSProject
+# Dictionary of environment variables for Github user and default paths
+envDict = {
+    "user": "githubUser",
+    "python": "pyProject",
+    "webjs": "webProject"
+}
+
+# Dictionary of files or folder with files to be created
+filesDict = {
+    "python": ["readme.md", "main.py", ".gitignore"],
+    "webjs": ["readme.md", "index.html", "public/stylesheets/main.css",
+              "public/javascripts/app.js", ".gitignore"]
 }
 
 # Dictionary of all templates, add if more template functions are required
