@@ -2,6 +2,7 @@ import sys
 from projectCreate import GitInitiate as Git
 
 
+# add elements in dictionary to expand
 menuDict = {
     "python": "python",
     "webjs": "webjs"
@@ -14,6 +15,7 @@ def invalid(msg=None):
     print(f"{msg}\nUse the help argument to display the help menu")
 
 
+# modify help menu if expanding
 def helpMenu():
     print("""\
 Help Menu:

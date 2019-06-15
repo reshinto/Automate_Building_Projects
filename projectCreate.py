@@ -43,7 +43,6 @@ class GitInitiate:
 
     def getCommands(self):
         """List of commands to be runned in the terminal."""
-        # UPDATE THIS to your environment variable
         return [
             "git init && git add . && git commit -m 'first commit'",
             f"curl -u '{os.environ.get(envDict['user'])}' "
@@ -64,6 +63,8 @@ def createFile(files, path):
         if templateDict.get(file):
             fl.FileSystem().editFile(filename, templateDict[file]())
 
+
+# Add template functions or dictionaries to expand
 
 def htmlTemplate():
     return """\
