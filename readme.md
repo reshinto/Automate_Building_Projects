@@ -18,7 +18,7 @@
     * Default path environment variable for each different type of project.
         * This is required to use the default feature.
 
-## Customizable expansion: projectCreate.py file
+## Customizable expansion
 * Create different types of projects (can be unrelated to Python and Javascript).
     * Update all elements in all Dictionaries in run.py and projectCreate.py.
         * menuDict in run.py must be updated to accept different types of projects.
