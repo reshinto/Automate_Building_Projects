@@ -8,7 +8,6 @@ class Project:
     """Create new project template."""
     def __init__(self, projectName, default):
         self.projectName = projectName
-        print(default)
         if default is True:
             if self.projectName is None:
                 self.projectName = input("Project name: ")
@@ -16,7 +15,6 @@ class Project:
             projectPath = os.environ.get(envDict[sys.argv[1]])
             self.path = f"{projectPath}/{self.projectName}"
         else:
-            print("testing")
             getPath = fl.FileSystem()
             getPath.setPath()
             self.path = f"{getPath.filePath}/{self.projectName}"
