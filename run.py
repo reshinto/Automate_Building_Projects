@@ -46,10 +46,11 @@ if __name__ == "__main__":
         else:
             projectName = sys.argv[2]
             if len(sys.argv) == 3:
-                Git(menuDict[projectType], projectName)
+                print(sys.argv)
+                Git(projectName)
                 print("New project created!")
             elif sys.argv[3] == "manual":
-                Git(menuDict[projectType], projectName, False)
+                Git(projectName, False)
                 print("New project created!")
             else:
                 invalid()

@@ -6,14 +6,17 @@ from libraries import filelib as fl
 
 class Project:
     """Create new project template."""
-    def __init__(self, projectName=None, default=True):
+    def __init__(self, projectName, default):
         self.projectName = projectName
+        print(default)
         if default is True:
             if self.projectName is None:
                 self.projectName = input("Project name: ")
+            print("weird", envDict[sys.argv[1]])
             projectPath = os.environ.get(envDict[sys.argv[1]])
             self.path = f"{projectPath}/{self.projectName}"
         else:
+            print("testing")
             getPath = fl.FileSystem()
             getPath.setPath()
             self.path = f"{getPath.filePath}/{self.projectName}"
@@ -33,7 +36,9 @@ class GitInitiate:
     def __init__(self, projectName=None, default=True):
         self.project = Project(projectName, default)
         self.path = self.project.path
-        os.chdir(self.path)  # required to run commands at correct path
+        # os.chdir(self.path)  # required to run commands at correct path
+        command = f"open -a iTerm {self.path}"
+        self.runCommand(command)
         for command in self.getCommands():
             self.runCommand(command)
 
