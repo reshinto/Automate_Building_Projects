@@ -56,7 +56,7 @@ class GitInitiate:
             "https://api.github.com/user/repos -d '"
             "{\"name\":\"" + f"{self.project.projectName}" + "\"}'",
             "git remote add origin https://github.com/"
-            f"{os.environ.get('githubUser')}/"
+            f"{os.environ.get(envDict['user'])}/"
             f"{self.project.projectName}.git",
             "git push -u origin master"
         ]
