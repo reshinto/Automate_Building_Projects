@@ -19,19 +19,27 @@ def invalid(msg=None):
 def helpMenu():
     print("""\
 Help Menu:
-1) Create new Python project at default path.
-python run.py python nameOfNewProjectFolder
+1) Create new Project
+    - Create new Python project at default path.
+      > python run.py python {nameOfNewProjectFolder}
 
-2) Create new Web project with Javascript at default path.
-python run.py webjs nameOfNewProjectFolder
+    - Create new Web project with Javascript at default path.
+      > python run.py webjs {nameOfNewProjectFolder}
 
-3) Create new Python project at designated path.
-python run.py python nameOfNewProjectFolder manual
-* then follow the instruction.
+2) Create new Project and open Project in new terminal.
+    - load variable MUST be used.
+      > python run.py {projectType} {nameOfNewProjectFolder} load
 
-4) Create new Web project with Javascript at designated path.
-python run.py webjs nameOfNewProjectFolder manual
-* then follow the instruction.
+3) Disable load function.
+    > python run.py {projectType} {nameOfNewProjectFolder} {xxx}
+
+4) Create new Project at designated path with load feature.
+    > python run.py {projectType} {nameOfNewProjectFolder} load manual
+    * then follow the instruction.
+
+5) Create new Project at designated path without load feature.
+    > python run.py {projectType} {nameOfNewProjectFolder} {xxx} manual
+    * then follow the instruction.
 """)
 
 
@@ -46,13 +54,13 @@ if __name__ == "__main__":
         else:
             projectName = sys.argv[2]
             if len(sys.argv) == 3:
-                print(sys.argv)
-                Git(projectName)
-                print("New project created!")
-            elif sys.argv[3] == "manual":
-                Git(projectName, False)
-                print("New project created!")
+                Git(projectName, False, True)
             else:
-                invalid()
+                load = True if sys.argv[3] == "load" else False
+                if len(sys.argv) == 4:
+                    Git(projectName, load, True)
+                if sys.argv[4] == "manual":
+                    Git(projectName, load, False)
+            print("New project created!")
     except IndexError as msg:
         invalid(msg)

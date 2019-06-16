@@ -1,6 +1,6 @@
 # Automate Building of New Project
-* The purpose of this app is to automate the building of new project.
-* This currently support python projects and Web projects using Javascript.
+* The purpose of this app is to automate the building of new projects.
+* Currently support python projects and Web projects using Javascript.
 * No installation of additional libraries are required.
 
 ## Tests
@@ -32,6 +32,7 @@
         * templateDict in projectCreate.py can be updated if adding data to a new file is required.
             * Key must be the file or folder with file name.
             * Value is the function name, which must be created and returned with the desired data to be stored.
-        * gitignoreDict in projectCreate.py must be update to ignore the unwanted files.
+        * gitignoreDict in projectCreate.py must be updated to ignore the unwanted files.
             * Key must be similar to menuDict.
             * Value is the String of files to ignore.
+        * navDict in projectCreate.py must be updated to enable the load feature for opening and navigating to new Project folder.

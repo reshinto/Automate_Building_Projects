@@ -1,6 +1,7 @@
 import os
 import sys
 import subprocess
+import platform
 from libraries import filelib as fl
 
 
@@ -11,7 +12,6 @@ class Project:
         if default is True:
             if self.projectName is None:
                 self.projectName = input("Project name: ")
-            print("weird", envDict[sys.argv[1]])
             projectPath = os.environ.get(envDict[sys.argv[1]])
             self.path = f"{projectPath}/{self.projectName}"
         else:
@@ -31,13 +31,17 @@ class GitInitiate:
     - Link project to respository
     - Push project to respository
     """
-    def __init__(self, projectName=None, default=True):
+    def __init__(self, projectName=None, load=False, default=True):
         self.project = Project(projectName, default)
         self.path = self.project.path
-        # os.chdir(self.path)  # required to run commands at correct path
-        command = f"open -a iTerm {self.path}"
-        self.runCommand(command)
+        os.chdir(self.path)  # required to run commands at correct path
         for command in self.getCommands():
+            self.runCommand(command)
+        # open new project in another terminal
+        if load is True:
+            if navDict.get(platform.system()) is None:
+                return "OS not supported, unable to auto load."
+            command = navDict[platform.system()] + f" {self.path}"
             self.runCommand(command)
 
     def runCommand(self, command):
@@ -114,4 +118,10 @@ templateDict = {
 gitignoreDict = {
     "python": "__pycahce__\n*.pyc",
     "webjs": "._*"
+}
+
+navDict = {
+    "Darwin": "open -a iTerm",
+    "Windows": "",
+    "Linux": ""
 }
