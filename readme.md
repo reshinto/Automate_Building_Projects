@@ -35,4 +35,4 @@
         * gitignoreDict in projectCreate.py must be updated to ignore the unwanted files.
             * Key must be similar to menuDict.
             * Value is the String of files to ignore.
-        * navDict in projectCreate.py must be updated to enable the load feature for opening and navigating to new Project folder.
+        * navDict in projectCreate.py must be updated to enable the load feature for opening and navigating to new Project folder in unsupported OS.
