@@ -5,7 +5,8 @@ from projectCreate import GitInitiate as Git
 # add elements in dictionary to expand
 menuDict = {
     "python": "python",
-    "webjs": "webjs"
+    "staticWebJs": "staticWebJs",
+    "d3Tutorial": "d3Tutorial"
 }
 
 
@@ -40,6 +41,11 @@ Help Menu:
 5) Create new Project at designated path without load feature.
     > python run.py {projectType} {nameOfNewProjectFolder} {xxx} manual
     * then follow the instruction.
+
+List of Project types currently supported:
+1) python: Creates a simple python project.
+2) staticWebJs: Creates a simple static web project with Javascript.
+3) d3Tutorial: Creates a D3 tutorial project.
 """)
 
 
@@ -55,12 +61,16 @@ if __name__ == "__main__":
             projectName = sys.argv[2]
             if len(sys.argv) == 3:
                 Git(projectName, False, True)
+                print("New project created!")
             else:
                 load = True if sys.argv[3] == "load" else False
                 if len(sys.argv) == 4:
                     Git(projectName, load, True)
+                    print("New project created!")
                 if sys.argv[4] == "manual":
                     Git(projectName, load, False)
-            print("New project created!")
+                    print("New project created!")
+                else:
+                    invalid(f"{sys.argv[4]} is not supported")
     except IndexError as msg:
         invalid(msg)

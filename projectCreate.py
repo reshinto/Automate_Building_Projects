@@ -72,8 +72,10 @@ def createFile(files, path):
 
 
 # Add template functions or dictionaries to expand
-
 def htmlTemplate():
+    return htmlDict[sys.argv[1]]()
+
+def staticTemplate():
     return """\
 <!DOCTYPE html>
 <html lang="en">
@@ -90,6 +92,23 @@ def htmlTemplate():
 """
 
 
+def d3TutorialTemplate():
+    return f"""\
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <link rel="stylesheet" href="{sys.argv[1]}.css">
+</head>
+<body>
+</body>
+<script type="text/javascript" src="{sys.argv[1]}.js"></script>
+</html>
+"""
+
+
 def gitignoreTemplate():
     return gitignoreDict[sys.argv[1]]
 
@@ -98,26 +117,34 @@ def gitignoreTemplate():
 envDict = {
     "user": "githubUser",
     "python": "pyProject",
-    "webjs": "webProject"
+    "staticWebJs": "webProject"
 }
 
 # Dictionary of files or folder with files to be created
 filesDict = {
     "python": ["readme.md", "main.py", ".gitignore"],
-    "webjs": ["readme.md", "index.html", "public/stylesheets/main.css",
-              "public/javascripts/app.js", ".gitignore"]
+    "staticWebJs": ["readme.md", "index.html", "public/stylesheets/main.css",
+                    "public/javascripts/app.js", ".gitignore"],
+    "d3Tutorial": [f"{sys.argv[2]}.html", f"{sys.argv[2]}.css",
+                   f"{sys.argv[2]}.js"]
 }
 
 # Dictionary of all templates, add if more template functions are required
 templateDict = {
     "index.html": htmlTemplate,
+    f"{sys.argv[2]}.html": htmlTemplate,
     ".gitignore": gitignoreTemplate
+}
+
+htmlDict = {
+    "staticWebJs": staticTemplate,
+    "d3Tutorial": d3TutorialTemplate
 }
 
 # Dictionary of files to ignore, add if other files are required to ignore
 gitignoreDict = {
     "python": "__pycahce__\n*.pyc",
-    "webjs": "._*"
+    "staticWebJs": "._*"
 }
 
 navDict = {
