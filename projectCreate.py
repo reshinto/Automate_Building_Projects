@@ -113,42 +113,44 @@ def gitignoreTemplate():
     return gitignoreDict[sys.argv[1]]
 
 
-# Dictionary of environment variables for Github user and default paths
-envDict = {
-    "user": "githubUser",
-    "python": "pyProject",
-    "staticWebJs": "webProject"
-}
+if len(sys.argv) >= 3:
+    # Dictionary of environment variables for Github user and default paths
+    envDict = {
+        "user": "githubUser",
+        "python": "pyProject",
+        "staticWebJs": "webProject"
+    }
 
-# Dictionary of files or folder with files to be created
-filesDict = {
-    "python": ["readme.md", "main.py", ".gitignore"],
-    "staticWebJs": ["readme.md", "index.html", "public/stylesheets/main.css",
-                    "public/javascripts/app.js", ".gitignore"],
-    "d3Tutorial": [f"{sys.argv[2]}.html", f"{sys.argv[2]}.css",
-                   f"{sys.argv[2]}.js"]
-}
+    # Dictionary of files or folder with files to be created
+    filesDict = {
+        "python": ["readme.md", "main.py", ".gitignore"],
+        "staticWebJs": ["readme.md", "index.html",
+                        "public/stylesheets/main.css",
+                        "public/javascripts/app.js", ".gitignore"],
+        "d3Tutorial": [f"{sys.argv[2]}.html", f"{sys.argv[2]}.css",
+                       f"{sys.argv[2]}.js"]
+    }
 
-# Dictionary of all templates, add if more template functions are required
-templateDict = {
-    "index.html": htmlTemplate,
-    f"{sys.argv[2]}.html": htmlTemplate,
-    ".gitignore": gitignoreTemplate
-}
+    # Dictionary of all templates, add if more template functions are required
+    templateDict = {
+        "index.html": htmlTemplate,
+        f"{sys.argv[2]}.html": htmlTemplate,
+        ".gitignore": gitignoreTemplate
+    }
 
-htmlDict = {
-    "staticWebJs": staticTemplate,
-    "d3Tutorial": d3TutorialTemplate
-}
+    htmlDict = {
+        "staticWebJs": staticTemplate,
+        "d3Tutorial": d3TutorialTemplate
+    }
 
-# Dictionary of files to ignore, add if other files are required to ignore
-gitignoreDict = {
-    "python": "__pycahce__\n*.pyc",
-    "staticWebJs": "._*"
-}
+    # Dictionary of files to ignore, add if other files are required to ignore
+    gitignoreDict = {
+        "python": "__pycahce__\n*.pyc",
+        "staticWebJs": "._*"
+    }
 
-navDict = {
-    "Darwin": "open -a iTerm",
-    "Windows": "",
-    "Linux": ""
-}
+    navDict = {
+        "Darwin": "open -a iTerm",
+        "Windows": "",
+        "Linux": ""
+    }
