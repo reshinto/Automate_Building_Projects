@@ -78,6 +78,7 @@ def createFile(files, path):
 def htmlTemplate():
     return htmlDict[sys.argv[1]]()
 
+
 def staticTemplate():
     return """\
 <!DOCTYPE html>
