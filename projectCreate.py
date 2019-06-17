@@ -100,11 +100,11 @@ def d3TutorialTemplate():
     <meta charset="UTF-8">
     <title></title>
     <script src="https://d3js.org/d3.v5.min.js"></script>
-    <link rel="stylesheet" href="{sys.argv[1]}.css">
+    <link rel="stylesheet" href="{sys.argv[2]}.css">
 </head>
 <body>
 </body>
-<script type="text/javascript" src="{sys.argv[1]}.js"></script>
+<script type="text/javascript" src="{sys.argv[2]}.js"></script>
 </html>
 """
 
