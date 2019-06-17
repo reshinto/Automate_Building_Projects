@@ -18,8 +18,7 @@
     * Default path environment variable for each different type of project.
         * This is required to use the default feature.
 * By default, folders, files, git init, git add, git commit, git repository, git remote, git push will automatically be created and initiated.
-    * If creating of a git repository is not required, press "ctrl - c" when requested for password.
-        * By doing this, load feature will not be supported as it is not required for me at the moment.
+    * If creating of git repository is not required, press "ctrl + c" when requested for password.
 
 ## Customizable expansion
 * Create different types of projects (can be unrelated to Python and Javascript).
