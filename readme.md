@@ -1,4 +1,4 @@
-# Automate Building of New Project
+# Automate Building of New Projects
 * The purpose of this app is to automate the building of new projects.
 * Currently support python projects and Web projects using Javascript.
 * No installation of additional libraries are required.
