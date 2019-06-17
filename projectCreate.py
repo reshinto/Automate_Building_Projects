@@ -119,7 +119,8 @@ def gitignoreTemplate():
 
 if len(sys.argv) >= 3:
     ###################
-    # 1) Update if have default path for new project, and to edit saved github username environemnt variable
+    # 1) Update if have default path for new project,
+    # and to edit saved github username environemnt variable
     # Dictionary of environment variables for Github user and default paths
     envDict = {
         "user": "githubUser",
@@ -166,6 +167,9 @@ if len(sys.argv) >= 3:
 
     ###################
     # 6) Update for OS support
+    # Dictionary of opening terminal commands for each OS
+    # This command will combine with new project folder path
+    # to open new project folder in a new terminal window or tab
     navDict = {
         "Darwin": "open -a iTerm",
         "Windows": "",
