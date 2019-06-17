@@ -118,6 +118,8 @@ def gitignoreTemplate():
 
 
 if len(sys.argv) >= 3:
+    ###################
+    # 1) Update if have default path for new project, and to edit saved github username environemnt variable
     # Dictionary of environment variables for Github user and default paths
     envDict = {
         "user": "githubUser",
@@ -125,6 +127,8 @@ if len(sys.argv) >= 3:
         "staticWebJs": "webProject"
     }
 
+    ###################
+    # 2) Update to create files or folder with files for new project
     # Dictionary of files or folder with files to be created
     filesDict = {
         "python": ["readme.md", "main.py", ".gitignore"],
@@ -135,6 +139,9 @@ if len(sys.argv) >= 3:
                        f"{sys.argv[2]}.js"]
     }
 
+    ###################
+    # 3) Update if required to add data for specific files
+    # If updated, 4) and/or 5) might also need to be updated
     # Dictionary of all templates, add if more template functions are required
     templateDict = {
         "index.html": htmlTemplate,
@@ -142,17 +149,23 @@ if len(sys.argv) >= 3:
         ".gitignore": gitignoreTemplate
     }
 
+    ###################
+    # 4) Update if required to edit files for specific project types
     htmlDict = {
         "staticWebJs": staticTemplate,
         "d3Tutorial": d3TutorialTemplate
     }
-
+    
+    ###################
+    # 5) Update for .gitignore support
     # Dictionary of files to ignore, add if other files are required to ignore
     gitignoreDict = {
         "python": "__pycahce__\n*.pyc",
         "staticWebJs": "._*"
     }
 
+    ###################
+    # 6) Update for OS support
     navDict = {
         "Darwin": "open -a iTerm",
         "Windows": "",
