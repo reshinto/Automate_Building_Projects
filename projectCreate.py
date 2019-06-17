@@ -35,8 +35,11 @@ class GitInitiate:
         self.project = Project(projectName, default)
         self.path = self.project.path
         os.chdir(self.path)  # required to run commands at correct path
-        for command in self.getCommands():
-            self.runCommand(command)
+        try:
+            for command in self.getCommands():
+                self.runCommand(command)
+        except KeyboardInterrupt:
+            print("\nCreating of new Github repository has been cancelled.")
         # open new project in another terminal
         if load is True:
             if navDict.get(platform.system()) is None:
