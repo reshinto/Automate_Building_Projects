@@ -2,6 +2,8 @@
 * The purpose of this app is to automate the building of new projects.
 * Currently support python projects and Web projects using Javascript.
 * No installation of additional libraries are required.
+* This does not check for existing project prior to creating.
+   * If existing project already exist, and iif there are template data required to be added, data will just be appended to existing file.
 
 ## Tests
 * Tested on Mac OSX Mojave.
