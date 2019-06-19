@@ -107,8 +107,8 @@ def d3TutorialTemplate():
     <link rel="stylesheet" href="{sys.argv[2]}.css">
 </head>
 <body>
+    <script type="text/javascript" src="{sys.argv[2]}.js"></script>
 </body>
-<script type="text/javascript" src="{sys.argv[2]}.js"></script>
 </html>
 """
 
@@ -156,7 +156,7 @@ if len(sys.argv) >= 3:
         "staticWebJs": staticTemplate,
         "d3Tutorial": d3TutorialTemplate
     }
-    
+
     ###################
     # 5) Update for .gitignore support
     # Dictionary of files to ignore, add if other files are required to ignore
