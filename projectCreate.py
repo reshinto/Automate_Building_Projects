@@ -136,7 +136,7 @@ if len(sys.argv) >= 3:
         "staticWebJs": ["readme.md", "index.html",
                         "public/stylesheets/main.css",
                         "public/javascripts/app.js", ".gitignore"],
-        "d3Tutorial": [f"{sys.argv[2]}.html", f"{sys.argv[2]}.css",
+        "d3Tutorial": ["index.html", f"{sys.argv[2]}.css",
                        f"{sys.argv[2]}.js"]
     }
 
@@ -146,7 +146,6 @@ if len(sys.argv) >= 3:
     # Dictionary of all templates, add if more template functions are required
     templateDict = {
         "index.html": htmlTemplate,
-        f"{sys.argv[2]}.html": htmlTemplate,
         ".gitignore": gitignoreTemplate
     }
 
