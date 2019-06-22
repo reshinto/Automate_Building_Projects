@@ -5,19 +5,19 @@ import platform
 from libraries import filelib as fl
 
 
-class Project:
+class Project:  # pylint: disable=too-few-public-methods
     """Create new project template."""
-    def __init__(self, projectName, default):
-        self.projectName = projectName
+    def __init__(self, project_name, default):
+        self.project_name = project_name
         if default is True:
-            if self.projectName is None:
-                self.projectName = input("Project name: ")
-            projectPath = os.environ.get(envDict[sys.argv[1]])
-            self.path = f"{projectPath}/{self.projectName}"
+            if self.project_name is None:
+                self.project_name = input("Project name: ")
+            project_path = os.environ.get(envDict[sys.argv[1]])
+            self.path = f"{project_path}/{self.project_name}"
         else:
-            getPath = fl.FileSystem()
-            getPath.setPath()
-            self.path = f"{getPath.filePath}/{self.projectName}"
+            get_path = fl.FileSystem()
+            get_path.setPath()
+            self.path = f"{get_path.file_path}/{self.project_name}"
         createFile(filesDict[sys.argv[1]], self.path)
 
 
@@ -31,25 +31,18 @@ class GitInitiate:
     - Link project to respository
     - Push project to respository
     """
-    def __init__(self, projectName=None, load=False, default=True):
-        self.project = Project(projectName, default)
+    def __init__(self, project_name=None, load=False, default=True):
+        self.project = Project(project_name, default)
         self.path = self.project.path
         os.chdir(self.path)  # required to run commands at correct path
         try:
             for command in self.getCommands():
-                self.runCommand(command)
+                runCommand(command)
         except KeyboardInterrupt:
             print("\nCreating of new Github repository has been cancelled.")
         # open new project in another terminal
         if load is True:
-            if navDict.get(platform.system()) is None:
-                return "OS not supported, unable to auto load."
-            command = navDict[platform.system()] + f" {self.path}"
-            self.runCommand(command)
-
-    def runCommand(self, command):
-        """Run commands in the terminal."""
-        return subprocess.check_output(command, shell=True).decode().strip()
+            self.setLoad()
 
     def getCommands(self):
         """List of commands to be runned in the terminal."""
@@ -57,12 +50,25 @@ class GitInitiate:
             "git init && git add . && git commit -m 'first commit'",
             f"curl -u '{os.environ.get(envDict['user'])}' "
             "https://api.github.com/user/repos -d '"
-            "{\"name\":\"" + f"{self.project.projectName}" + "\"}'",
+            "{\"name\":\"" + f"{self.project.project_name}" + "\"}'",
             "git remote add origin https://github.com/"
             f"{os.environ.get(envDict['user'])}/"
-            f"{self.project.projectName}.git",
+            f"{self.project.project_name}.git",
             "git push -u origin master"
         ]
+
+    def setLoad(self):
+        if navDict.get(platform.system()) is None:
+            return "OS not supported, unable to auto load."
+        # command = navDict[platform.system()] + f" {self.path}"
+        command = navDict[platform.system()] + f" ."
+        print(self.path)
+        return runCommand(command)
+
+
+def runCommand(command):
+    """Run commands in the terminal."""
+    return subprocess.check_output(command, shell=True).decode().strip()
 
 
 def createFile(files, path):

@@ -1,5 +1,5 @@
 import sys
-from projectCreate import GitInitiate as Git
+from projectcreate import GitInitiate as Git
 
 
 # add elements in dictionary to expand
@@ -10,10 +10,10 @@ menuDict = {
 }
 
 
-def invalid(msg=None):
-    if msg is None:
-        msg = "Invalid command!"
-    print(f"{msg}\nUse the help argument to display the help menu")
+def invalid(message=None):
+    if message is None:
+        message = "Invalid command!"
+    print(f"{message}\nUse the help argument to display the help menu")
 
 
 # modify help menu if expanding
@@ -63,7 +63,7 @@ if __name__ == "__main__":
                 Git(projectName, False, True)
                 print("New project created!")
             else:
-                load = True if sys.argv[3] == "load" else False
+                load = sys.argv[3] == "load"
                 if len(sys.argv) == 4:
                     Git(projectName, load, True)
                     print("New project created!")
