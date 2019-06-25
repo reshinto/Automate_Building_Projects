@@ -10,6 +10,7 @@
 * Python 3.6 and above should work.
 
 ## How to get it to work?
+* Curl must be installed.
 * Python needs to be installed.
 * Use the help command for instructions and to view the list of supported Projects.
 > python run.py help
