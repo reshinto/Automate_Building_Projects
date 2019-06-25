@@ -13,12 +13,14 @@ class Project:  # pylint: disable=too-few-public-methods
             if self.project_name is None:
                 self.project_name = input("Project name: ")
             project_path = os.environ.get(envDict[sys.argv[1]])
-            self.path = f"{project_path}/{self.project_name}"
+            self.path = f"{project_path}"
         else:
             get_path = fl.FileSystem()
             get_path.setPath()
-            self.path = f"{get_path.file_path}/{self.project_name}"
-        createFile(filesDict[sys.argv[1]], self.path)
+            self.path = f"{get_path.file_path}"
+        # skip file creation if filesDict returns a string
+        if not isinstance(filesDict[sys.argv[1]], str):
+            createFile(filesDict[sys.argv[1]], self.path)
 
 
 class GitInitiate:
@@ -33,10 +35,16 @@ class GitInitiate:
     """
     def __init__(self, project_name=None, load=False, default=True):
         self.project = Project(project_name, default)
-        self.path = self.project.path
+        if isinstance(filesDict[sys.argv[1]], str):
+            self.path = self.project.path
+            os.chdir(self.path)  # required to run commands at correct path
+            runCommand(filesDict[sys.argv[1]])
+        self.path = f"{self.project.path}/{self.project.project_name}"
         os.chdir(self.path)  # required to run commands at correct path
+        if not isinstance(filesDict[sys.argv[1]], str):
+            runCommand(self.getGitCommand)
         try:
-            for command in self.getCommands():
+            for command in self.getGithubCommands():
                 runCommand(command)
         except KeyboardInterrupt:
             print("\nCreating of new Github repository has been cancelled.")
@@ -44,10 +52,14 @@ class GitInitiate:
         if load is True:
             self.setLoad()
 
-    def getCommands(self):
+    @staticmethod
+    def getGitCommand():
         """List of commands to be runned in the terminal."""
+        return "git init && git add . && git commit -m 'first commit'"
+
+    def getGithubCommands(self):
+        """List of Github commands to be runned in the terminal."""
         return [
-            "git init && git add . && git commit -m 'first commit'",
             f"curl -u '{os.environ.get(envDict['user'])}' "
             "https://api.github.com/user/repos -d '"
             "{\"name\":\"" + f"{self.project.project_name}" + "\"}'",
@@ -131,7 +143,8 @@ if len(sys.argv) >= 3:
     envDict = {
         "user": "githubUser",
         "python": "pyProject",
-        "staticWebJs": "webProject"
+        "staticWebJs": "webProject",
+        "react": "webProject"
     }
 
     ###################
@@ -143,7 +156,8 @@ if len(sys.argv) >= 3:
                         "public/stylesheets/main.css",
                         "public/javascripts/app.js", ".gitignore"],
         "d3Tutorial": ["index.html", f"{sys.argv[2]}.css",
-                       f"{sys.argv[2]}.js"]
+                       f"{sys.argv[2]}.js"],
+        "react": f"npx create-react-app {sys.argv[2]}"
     }
 
     ###################

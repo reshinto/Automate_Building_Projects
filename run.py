@@ -6,7 +6,8 @@ from projectcreate import GitInitiate as Git
 menuDict = {
     "python": "python",
     "staticWebJs": "staticWebJs",
-    "d3Tutorial": "d3Tutorial"
+    "d3Tutorial": "d3Tutorial",
+    "react": "react"
 }
 
 
