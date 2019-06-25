@@ -27,12 +27,17 @@
     * Update all elements in all Dictionaries in run.py and projectcreate.py.
         * menuDict in run.py must be updated to accept different types of projects.
         * envDict in projectcreate.py must be updated for Github username and default path.
+            * If default path env and values are not set, running the app in default mode with produce an error.
             * Keys must be similar to menuDict, excluding Github username.
             * Values are the String of environment variables.
                 * Default path must be saved as an environment variable, and stored as the value of the key.
         * filesDict in projectcreate.py must be updated to create the desired files and or folders with files.
             * Key must be similar to menuDict.
             * Values must be a list of Strings, which are the file and or folder with file names.
+            * Exceptions:
+                * If creating React apps, folders and files will automatically be created when running "create-react-app" command.
+                    * Value must be a string command in this case.
+                    * e.g.: "npx create-react-app {my-app}"
         * templateDict in projectcreate.py can be updated if adding data to a new file is required.
             * Key must be the file or folder with file name.
                 * If tutorial html projects are created, all filenames will be named as project name by default.

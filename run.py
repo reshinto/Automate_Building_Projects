@@ -47,6 +47,7 @@ List of Project types currently supported:
 1) python: Creates a simple python project.
 2) staticWebJs: Creates a simple static web project with Javascript.
 3) d3Tutorial: Creates a D3 tutorial project.
+4) react: Creates a react project.
 """)
 
 

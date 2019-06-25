@@ -20,7 +20,8 @@ class Project:  # pylint: disable=too-few-public-methods
             self.path = f"{get_path.file_path}"
         # skip file creation if filesDict returns a string
         if not isinstance(filesDict[sys.argv[1]], str):
-            createFile(filesDict[sys.argv[1]], self.path)
+            createFile(filesDict[sys.argv[1]],
+                       f"{self.path}/{self.project_name}")
 
 
 class GitInitiate:
@@ -42,7 +43,7 @@ class GitInitiate:
         self.path = f"{self.project.path}/{self.project.project_name}"
         os.chdir(self.path)  # required to run commands at correct path
         if not isinstance(filesDict[sys.argv[1]], str):
-            runCommand(self.getGitCommand)
+            runCommand(self.getGitCommand())
         try:
             for command in self.getGithubCommands():
                 runCommand(command)
