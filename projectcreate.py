@@ -160,7 +160,7 @@ def reactNpmInitTemplate():
     ]
   }},
   "scripts": {{
-    "create": "webpack"
+    "start": "webpack-dev-server --open"
   }},
   "keywords": [],
   "author": "",
