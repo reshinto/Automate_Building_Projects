@@ -35,6 +35,7 @@ class GitInitiate:
     - Push project to respository
     """
     def __init__(self, project_name=None, load=False, default=True):
+		# TODO: fix ugly code
         self.project = Project(project_name, default)
         if isinstance(filesDict[sys.argv[1]], str):
             self.path = self.project.path
@@ -42,6 +43,9 @@ class GitInitiate:
             runCommand(filesDict[sys.argv[1]])
         self.path = f"{self.project.path}/{self.project.project_name}"
         os.chdir(self.path)  # required to run commands at correct path
+        if sys.argv[1] == "reactTut":
+            for command in getReactDependencies():
+                runCommand(command)
         if not isinstance(filesDict[sys.argv[1]], str):
             runCommand(self.getGitCommand())
         try:
@@ -50,8 +54,7 @@ class GitInitiate:
         except KeyboardInterrupt:
             print("\nCreating of new Github repository has been cancelled.")
         # open new project in another terminal
-        if load is True:
-            self.setLoad()
+        self.setLoad(load)
 
     @staticmethod
     def getGitCommand():
@@ -70,13 +73,14 @@ class GitInitiate:
             "git push -u origin master"
         ]
 
-    def setLoad(self):
-        if navDict.get(platform.system()) is None:
-            return "OS not supported, unable to auto load."
-        # command = navDict[platform.system()] + f" {self.path}"
-        command = navDict[platform.system()] + f" ."
-        print(self.path)
-        return runCommand(command)
+    def setLoad(self, load):
+        if load:
+            if navDict.get(platform.system()) is None:
+                print("OS not supported, unable to auto load.")
+            # command = navDict[platform.system()] + f" {self.path}"
+            command = navDict[platform.system()] + f" ."
+            print(self.path)
+            runCommand(command)
 
 
 def runCommand(command):
@@ -103,14 +107,13 @@ def staticTemplate():
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title></title>
-    <link rel="stylesheet" href="public/stylesheets/main.css">
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" href="public/stylesheets/main.css">
 </head>
 <body>
-
+  <script type="text/javascript" src="public/javascripts/app.js"></script>
 </body>
-<script type="text/javascript" src="public/javascripts/app.js"></script>
 </html>
 """
 
@@ -120,13 +123,13 @@ def d3TutorialTemplate():
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title></title>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <link rel="stylesheet" href="{sys.argv[2]}.css">
+  <meta charset="UTF-8">
+  <title></title>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <link rel="stylesheet" href="{sys.argv[2]}.css">
 </head>
 <body>
-    <script type="text/javascript" src="{sys.argv[2]}.js"></script>
+  <script type="text/javascript" src="{sys.argv[2]}.js"></script>
 </body>
 </html>
 """
@@ -134,6 +137,97 @@ def d3TutorialTemplate():
 
 def gitignoreTemplate():
     return gitignoreDict[sys.argv[1]]
+
+def getReactDependencies():
+    return ["npm i react react-dom",
+            "npm i --save-dev @babel/core @babel/preset-env",
+            "npm i --save-dev @babel/preset-react webpack webpack-cli",
+            "npm i --save-dev webpack-dev-server babel-loader css-loader",
+            "npm i --save-dev style-loader html-webpack-plugin"]
+
+
+def reactNpmInitTemplate():
+    return f"""\
+{{
+  "name": "{sys.argv[2]}",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "babel": {{
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
+  }},
+  "scripts": {{
+    "create": "webpack"
+  }},
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}}
+"""
+
+
+def webpackTemplate():
+    return r"""const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "index_bundle.js",
+  },
+  module: {
+    rules: [
+      {test: /\.(js)$/, use: "babel-loader"},
+      {test: /\.css$/, use: ["style-loader", "css-loader"]},
+    ],
+  },
+  mode: "development",
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "src/index.html",
+    }),
+  ],
+};
+"""
+
+
+def reactJsTemplate():
+    return """\
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        Hello World!
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<App />, document.getElementById("root"))
+"""
+
+
+def reactHtmlTemplate():
+    return """\
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>React App</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
+"""
 
 
 if len(sys.argv) >= 3:
@@ -158,7 +252,9 @@ if len(sys.argv) >= 3:
                         "public/javascripts/app.js", ".gitignore"],
         "d3Tutorial": ["index.html", f"{sys.argv[2]}.css",
                        f"{sys.argv[2]}.js"],
-        "react": f"npx create-react-app {sys.argv[2]}"
+        "react": f"npx create-react-app {sys.argv[2]}",
+        "reactTut": [".gitignore", "package.json", "webpack.config.js",
+                     "src/index.js", "src/index.css", "src/index.html"]
     }
 
     ###################
@@ -167,14 +263,19 @@ if len(sys.argv) >= 3:
     # Dictionary of all templates, add if more template functions are required
     templateDict = {
         "index.html": htmlTemplate,
-        ".gitignore": gitignoreTemplate
+        ".gitignore": gitignoreTemplate,
+        "package.json": reactNpmInitTemplate,
+        "webpack.config.js": webpackTemplate,
+        "src/index.js": reactJsTemplate,
+        "src/index.html": htmlTemplate
     }
 
     ###################
     # 4) Update if required to edit files for specific project types
     htmlDict = {
         "staticWebJs": staticTemplate,
-        "d3Tutorial": d3TutorialTemplate
+        "d3Tutorial": d3TutorialTemplate,
+        "reactTut": reactHtmlTemplate
     }
 
     ###################
@@ -182,7 +283,8 @@ if len(sys.argv) >= 3:
     # Dictionary of files to ignore, add if other files are required to ignore
     gitignoreDict = {
         "python": "__pycahce__\n*.pyc",
-        "staticWebJs": "._*"
+        "staticWebJs": "._*",
+        "reactTut": "node_modules\n.DS_Store\ndist"
     }
 
     ###################

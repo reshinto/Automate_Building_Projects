@@ -7,7 +7,8 @@ menuDict = {
     "python": "python",
     "staticWebJs": "staticWebJs",
     "d3Tutorial": "d3Tutorial",
-    "react": "react"
+    "react": "react",
+	"reactTut": "reactTut"
 }
 
 
@@ -48,6 +49,8 @@ List of Project types currently supported:
 2) staticWebJs: Creates a simple static web project with Javascript.
 3) d3Tutorial: Creates a D3 tutorial project.
 4) react: Creates a react project.
+5) reactTut: Creates a react tutorial project.
+   (does not contain the full react package.)
 """)
 
 
