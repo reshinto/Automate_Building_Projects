@@ -139,9 +139,10 @@ def gitignoreTemplate():
     return gitignoreDict[sys.argv[1]]
 
 def getReactDependencies():
-    return ["npm i react react-dom",
+    return ["npm i react react-dom prop-types",
             "npm i --save-dev @babel/core @babel/preset-env",
             "npm i --save-dev @babel/preset-react webpack webpack-cli",
+            "npm install --save-dev @babel/plugin-proposal-class-properties",
             "npm i --save-dev webpack-dev-server babel-loader css-loader",
             "npm i --save-dev style-loader html-webpack-plugin"]
 
@@ -157,6 +158,11 @@ def reactNpmInitTemplate():
     "presets": [
       "@babel/preset-env",
       "@babel/preset-react"
+    ],
+    "plugins": [
+      [
+        "@babel/plugin-proposal-class-properties"
+      ]
     ]
   }},
   "scripts": {{
